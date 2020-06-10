@@ -37,5 +37,21 @@ namespace Api.Controllers
             vehicleList.Add(vehicle);
             //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
         }
+
+        [HttpPut("{i}")]
+        public void putvehicle(int i,[FromBody]Vehicle vehicle)
+        {
+            vehicleList[i]=vehicle;
+            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+        }
+
+        [HttpDelete("{i}")]
+        public void Delete(int i)
+        {
+            vehicleList.RemoveAt(i);
+            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+        }
+
+
     }
 }
