@@ -1,57 +1,64 @@
+﻿
+using System.Collections.Generic;
+using Api.data;
+using Api.models;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Api.Controllers
 {
-    using System.Collections.Generic;
-    using Api.models;
-    using Microsoft.AspNetCore.Mvc;
-
-    [ApiController]
     [Route("api/[controller]")]
-
-    public class VehicleController : Controller
+    [ApiController]
+    public class VehicleController : ControllerBase
     {
-        // public IActionResult Index()
-        // {
-        //     return View();
-        // }
+        private readonly DataContext _dataContext;
 
-        // public IActionResult Welcome()
-        // {
-        //     ViewData["Message"] = "Your welcome message";
+        public VehicleController(DataContext dataContext)
+        {
+            _dataContext = dataContext;
 
-        //     return View();
-        // }
-        static List<Vehicle> vehicleList=new List<Vehicle>(){
-        new Vehicle(){Id=0,Price=100000,Title="wagonR"},
-        new Vehicle(){Id=1,Price=200000,Title="apache"},
-        new Vehicle(){Id=0,Price=300000,Title="scooty"},
-        };
-
-        [HttpGet] 
-        public IEnumerable<Vehicle> Get(){
-            return vehicleList;
+        }
+        // GET: api/ApiReadWrite
+        [HttpGet]
+        public IEnumerable<Vehicle> Get()
+        {
+            return _dataContext.vehiclesTbl;
         }
 
+        // GET: api/ApiReadWrite/5
+        [HttpGet("{id}")]
+        public Vehicle Get(int id)
+        {
+            var vehicle=_dataContext.vehiclesTbl.Find(id);
+            return vehicle;
+        }
+
+        // POST: api/ApiReadWrite
         [HttpPost]
-        public void post([FromBody]Vehicle vehicle)
+        public void Post([FromBody] Vehicle vehicle)
         {
-            vehicleList.Add(vehicle);
-            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+            _dataContext.vehiclesTbl.Add(vehicle);
+            _dataContext.SaveChanges();
         }
 
-        [HttpPut("{i}")]
-        public void putvehicle(int i,[FromBody]Vehicle vehicle)
+        // PUT: api/ApiReadWrite/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] Vehicle vehicle)
         {
-            vehicleList[i]=vehicle;
-            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+            var entity =_dataContext.vehiclesTbl.Find(id);
+            entity.Title=vehicle.Title ?? entity.Title;
+            entity.Price=vehicle.Price ?? entity.Price;  //methana vehicle eke double danna baha eka hinda athana ? eka use karanawa. 
+        
+            _dataContext.SaveChanges();
+
         }
 
-        [HttpDelete("{i}")]
-        public void Delete(int i)
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            vehicleList.RemoveAt(i);
-            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+            var entity=_dataContext.vehiclesTbl.Find(id);
+            _dataContext.vehiclesTbl.Remove(entity);
+            _dataContext.SaveChanges();
         }
-
-
     }
 }
