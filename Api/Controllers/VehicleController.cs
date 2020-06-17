@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Api.data;
 using Api.models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -19,46 +20,82 @@ namespace Api.Controllers
         }
         // GET: api/ApiReadWrite
         [HttpGet]
-        public IEnumerable<Vehicle> Get()
+        public IActionResult Get()
         {
-            return _dataContext.vehiclesTbl;
+            // return _dataContext.vehiclesTbl;
+
+            return Ok(_dataContext.vehiclesTbl);
+            // return StatusCode(200);
+            // return StatusCode(StatusCodes.Status200OK);
+
         }
 
         // GET: api/ApiReadWrite/5
         [HttpGet("{id}")]
-        public Vehicle Get(int id)
+        public IActionResult Get(int id)
         {
-            var vehicle=_dataContext.vehiclesTbl.Find(id);
-            return vehicle;
+            var vehicle = _dataContext.vehiclesTbl.Find(id);
+            // return vehicle;
+            if (vehicle==null)  
+            {
+                return NotFound("record not found");
+            }
+            else{
+                return Ok("Record is on the database");
+            }
+
         }
 
         // POST: api/ApiReadWrite
         [HttpPost]
-        public void Post([FromBody] Vehicle vehicle)
+        public IActionResult Post([FromBody] Vehicle vehicle)
         {
             _dataContext.vehiclesTbl.Add(vehicle);
             _dataContext.SaveChanges();
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         // PUT: api/ApiReadWrite/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Vehicle vehicle)
+        public IActionResult Put(int id, [FromBody] Vehicle vehicle)
         {
-            var entity =_dataContext.vehiclesTbl.Find(id);
-            entity.Title=vehicle.Title ?? entity.Title;
-            entity.Price=vehicle.Price ?? entity.Price;  //methana vehicle eke double danna baha eka hinda athana ? eka use karanawa. 
-        
-            _dataContext.SaveChanges();
+            var entity = _dataContext.vehiclesTbl.Find(id);
+            if (entity == null)
+            {
+                return NotFound("record not found");
+            }
+            else
+            {
+                entity.Title = vehicle.Title ?? entity.Title;
+                entity.Price = vehicle.Price ?? entity.Price;  //methana vehicle eke double danna baha eka hinda athana ? eka use karanawa. 
+
+                _dataContext.SaveChanges();
+
+                return Ok("updated successfully");
+
+            }
+
 
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var entity=_dataContext.vehiclesTbl.Find(id);
-            _dataContext.vehiclesTbl.Remove(entity);
-            _dataContext.SaveChanges();
+            var entity = _dataContext.vehiclesTbl.Find(id);
+            if (entity == null)
+            {
+                return NotFound("record is not found");
+
+            }
+            else
+            {
+                _dataContext.vehiclesTbl.Remove(entity);
+                _dataContext.SaveChanges();
+                return Ok("successfully added");
+            }
+
+
         }
     }
 }

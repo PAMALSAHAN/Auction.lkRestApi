@@ -1,0 +1,213 @@
+meke startup eke parts dekak tinawa.
+    configureservices
+        mekedi karanne DI set eka mvc set entity framework set  use karana eka.
+    configure 
+        mekedi karanne http pipeline eke use karana pipes middleware use karana eka.
+--------------------------------------------------------------------
+HTTPVERBS
+    mekedi api CRUD use karanne naha.e wenuwata use karanne http verbs.
+        create -----------post
+        read    ----------get
+        update------------put
+        delete------------delete
+-------------------------------------------------------------------------------------
+CONTROLLER
+    meka hadaganna snnipet ekak use karanna puluwan. ethakata enne me wage ekake.
+            namespace Api.Controllers
+    {
+
+        using Microsoft.AspNetCore.Mvc;
+
+        public class VehicleController : Controller
+        {
+            public IActionResult Index()
+            {
+                return View();
+            }
+
+            public IActionResult Welcome()
+            {
+                ViewData["Message"] = "Your welcome message";
+
+                return View();
+            }
+        }
+    }
+
+    names tika deela hariyata hadaganna one.ita passe karanna tinne api ekak widihata hadaganna eka.
+    meka thama mvc walata eka template eka.
+        meka api walata use karanna hadaganna wanam karanna tinne
+            [ApiController]
+            [Route("api/[controller]")]
+        me deka class ekata udin dana eka.
+
+            function eka laga [httpget] wage ekak danawa postman wage ewata adunaganna
+            eka nathiwath wada. bt danna eka.
+        
+        *anti eka thama controller eke nama hariyatama tibbahama athi.simple da capital da kiyana eka adala naha.
+---------------------------------------------------------------------------------
+MVC AND API DIFFERENCE
+    uda ena template eka thama apita use karanna wenne.
+        mvc nam return karanne view eka tinna one view folder eke tinna one.
+        view forlder eka athule vehicle kiyala folder eka athule controller eke function walata adala
+        pages tinna one.meka mvc folder eke tinawa.
+
+------------------------------------------------------------------------------------------------------
+GET REQUEST CONTROLLER
+    static List<Vehicle> vehicleList=new List<Vehicle>(){
+        new Vehicle(){Id=0,Price=100000,Title="wagonR"},
+        new Vehicle(){Id=1,Price=200000,Title="apache"},
+        new Vehicle(){Id=0,Price=300000,Title="scooty"},
+        };
+
+        [HttpGet] 
+        public IEnumerable<Vehicle> Get(){
+            return vehicleList;
+        }
+---------------------------------------------------------------------------------------------------
+POST REQUEST CONTROLLER
+    mekedi api function ekak hadala 
+
+         [HttpPost]
+        public void post([FromBody]Vehicle vehicle)
+        {
+            vehicleList.Add(vehicle);
+            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+        }
+    
+    parameters gawin FromBody kiyana eka danna one mokada postman eke body eken thamai meka karanne.
+    referesh karoth nathi wenawa. temparary tinne.database ekak nahane ekai.
+--------------------------------------------------------------------------------------------------------------
+PUT REQUEST CONTROLLER
+
+    [HttpPut("{i}")]
+        public void putvehicle(int i,[FromBody]Vehicle vehicle)
+        {
+            vehicleList[i]=vehicle;
+            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+        }
+    
+    mekedi i,vehicle dekama parameters danna one.HttpPut(1) id ekata danna one.
+    mekath temparary ekak.
+        anith eka thamai method name eka wenas una kiyala kamak naha.
+------------------------------------------------------------------------------------------------------------------
+DELETE REQUEST CONTROLLER
+    [HttpDelete("{i}")]
+        public void Delete(int i)
+        {
+            vehicleList.RemoveAt(i);
+            //vehicle list eka static karanawa ethakota eka copy ekai hadenne.
+        }
+-----------------------------------------------------------------------------------------------------------------------
+NUGET PACKAGES TO use
+
+    dotnet add package Microsoft.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+----------------------------------------------------------------------------------------------
+Db context
+    data class eke thami meka hadanne.
+
+    make a class with any name and inherit from DbContext
+        this Db context comming from EntityFrameworkCore namespace.this class is responsible to 
+        work with the database.I mean that crud operation with the database.
+            the DbContext options instance carries configuration informations such as connection string,the database to use.
+            the esiest way to pass an instance of DbContext option class is by creating a ctor.
+        
+        after that we add a propety.it is going to return dbset of vehicle.If we create that propety name as vehicles then ef will 
+        create a table inside a database with the same name. 
+
+    make a controller and name it as vehicleController.
+
+        make a ctor and pass datacantext as a parameter.because it responsible for connection with database.
+
+---------------------------------------------------------------------------------------------------------
+ADD connection string
+    to work with the database we must need to create connection string.go to the startup class.
+    then add connection string to the services as follows.
+----------------------------------------------------------------------------------------------------------------
+HttpGet Vehicle LIST 
+     [HttpGet]
+        public IEnumerable<Vehicle> Get()
+        {
+            return _dataContext.vehiclesTbl;
+        }
+-----------------------------------------------------------------------------------------------------------
+HttpGet one vehicle
+    [HttpGet("{id}")]
+        public Vehicle Get(int id)
+        {
+            var vehicle=_dataContext.vehiclesTbl.Find(id);
+            return vehicle;
+        }
+--------------------------------------------------------------------------------------------------------------------
+HttpPost 
+     [HttpPost]
+        public void Post([FromBody] Vehicle vehicle)
+        {
+            _dataContext.vehiclesTbl.Add(vehicle);
+            _dataContext.SaveChanges();
+        }
+
+    meke id eka auto increment wenawa.eka hinda id ekata value ekak denna one wenne naha.
+-------------------------------------------------------------------------------------------------------------------
+HttpPut
+     [HttpPut("{id}")]
+        public void Put(int id, [FromBody] Vehicle vehicle)
+        {
+            var entity =_dataContext.vehiclesTbl.Find(id);
+            entity.Title=vehicle.Title ?? entity.Title;
+            entity.Price=vehicle.Price ?? entity.Price;  //methana vehicle eke double danna baha eka hinda athana ? eka use karanawa. 
+        
+            _dataContext.SaveChanges();
+
+        }
+---------------------------------------------------------------------------------------------------------------------
+44444444444
+    HttpStatus Code
+        mekedi use karanne return karana eka http status code ekak.
+            palamuwa use karanne return ok() meka use krahama IEnumerable walin wada karanne naha.mekata use karanna one 
+                        [HttpGet]
+                public IActionResult Get()
+                {
+                // return _dataContext.vehiclesTbl;
+
+                    return Ok( _dataContext.vehiclesTbl);
+
+                }
+             // return StatusCode(200);
+            // return StatusCode(StatusCodes.Status200OK);
+        menna me dekath use karanna puluwan.
+    ------------------------------------------------------------------------------------------------------------------
+    HttpStatus code post    
+         [HttpPost]
+        public IActionResult Post([FromBody] Vehicle vehicle)
+        {
+            _dataContext.vehiclesTbl.Add(vehicle);
+            _dataContext.SaveChanges();
+            return StatusCode(StatusCodes.Status201Created);
+        }
+    ---------------------------------------------------------------------------------------------------------------------
+    HttpStatus code put 
+          [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Vehicle vehicle)
+        {
+            var entity =_dataContext.vehiclesTbl.Find(id);
+            entity.Title=vehicle.Title ?? entity.Title;
+            entity.Price=vehicle.Price ?? entity.Price;  //methana vehicle eke double danna baha eka hinda athana ? eka use karanawa. 
+        
+            _dataContext.SaveChanges();
+
+            return Ok("updated successfully");
+
+        }
+
+        return body eke return karana message eka tinawa.mekedi recode ekak nathi data ekak dammahama eken error ekak enawa.meka hadanna one 
+        me widihatama delete eketh karanawa get eke id ekak return karanakotath karanawa.
+    ---------------------------------------------------------------------------------------------------------------------
+    CONTENT NEGOTIATION
+        mekedi karanne client header eke liyala ewanna one one data eka mona format ekenda one kiyala.xml walinda naththam json walin da one kiyala.
+        asp.netcore wala tinne hama welema json walin thami content eka denne. apita xml walin one nam karanna tinne api denna one 
+
+        services.AddMvc().AddXmlSerializerFormatters();
+            meka athiwa wadak naha kochchara illuwath.xml walin denna baha.xmal walin one nam weka startup eke gihin wenas karanna one.
+            mekedi wenne athhtama api pipeline eken client ta one eka hadala dena eka.
