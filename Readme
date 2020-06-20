@@ -211,3 +211,16 @@ HttpPut
         services.AddMvc().AddXmlSerializerFormatters();
             meka athiwa wadak naha kochchara illuwath.xml walin denna baha.xmal walin one nam weka startup eke gihin wenas karanna one.
             mekedi wenne athhtama api pipeline eken client ta one eka hadala dena eka.
+
+------------------------------------------------------------------------------------------------------------
+555555555555555
+    migration
+        api hadapu code ekata vehicle ekata thawa attribite ekak ekathu kala kiyanna.wadak wenne naha mokada apu startup eke 
+        use karalatinne 
+            dataContext.Database.EnsureCreated(); 
+        EnsureCreated kiyana eka. meka use karahama wenne model eka wenas karath wenas wenne naha.eka hinda hodama de thamai 
+        ekata code first migration use karana eka.
+            dan kranna tinne 
+                dataContext.Database.EnsureCreated() eka comment karala db eka delete karana eka.ita passe use karanna puluwan.
+            migration tika.
+

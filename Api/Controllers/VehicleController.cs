@@ -52,7 +52,7 @@ namespace Api.Controllers
         {
             _dataContext.vehiclesTbl.Add(vehicle);
             _dataContext.SaveChanges();
-            return StatusCode(StatusCodes.Status201Created);
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         // PUT: api/ApiReadWrite/5
@@ -68,7 +68,7 @@ namespace Api.Controllers
             {
                 entity.Title = vehicle.Title ?? entity.Title;
                 entity.Price = vehicle.Price ?? entity.Price;  //methana vehicle eke double danna baha eka hinda athana ? eka use karanawa. 
-
+                entity.color=vehicle.color ?? entity.color;
                 _dataContext.SaveChanges();
 
                 return Ok("updated successfully");
