@@ -40,7 +40,7 @@ namespace Api
 
             app.UseRouting();
             
-            dataContext.Database.EnsureCreated();
+           // dataContext.Database.EnsureCreated();
 
             app.UseAuthorization();
 
