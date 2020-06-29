@@ -128,3 +128,6 @@ F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\Mi
 F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
 F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+F:\udemy\.netWithRestfulApi\work\CWheelRestFulApi\Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

@@ -1,4 +1,5 @@
 ﻿using Api.data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -6,6 +7,7 @@ namespace Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] 
     public class CategoriesController : ControllerBase
     {
         private readonly DataContext _dataContext;
@@ -16,6 +18,7 @@ namespace Api.Controllers
 
         }
 
+        
         [HttpGet]
         public IActionResult GetAction(){
             var categoryList=_dataContext.CategoryTbl;
