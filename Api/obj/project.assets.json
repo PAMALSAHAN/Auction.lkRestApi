@@ -16,6 +16,15 @@
           "lib/netcoreapp2.2/AuthenticationPlugin.dll": {}
         }
       },
+      "AspNetCore.ImageUploader/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.2/ImageUploader.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.2/ImageUploader.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.5": {
         "type": "package",
         "dependencies": {
@@ -2616,6 +2625,19 @@
         "aspnetcore.authentication.plugin.nuspec",
         "lib/netcoreapp2.2/AuthenticationPlugin.dll",
         "lib/netcoreapp2.2/AuthenticationPlugin.xml"
+      ]
+    },
+    "AspNetCore.ImageUploader/1.0.0": {
+      "sha512": "duPHXYYBJrtdAaUHdQ8D0/RXCQ4bsxRqjkzCQiHYxk772krpj6JeFUdaonudEENjN4Kds2S++29/L9IGlgPLMw==",
+      "type": "package",
+      "path": "aspnetcore.imageuploader/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspnetcore.imageuploader.1.0.0.nupkg.sha512",
+        "aspnetcore.imageuploader.nuspec",
+        "lib/netcoreapp2.2/ImageUploader.dll",
+        "lib/netcoreapp2.2/ImageUploader.xml"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.5": {
@@ -8431,6 +8453,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "AspNetCore.Authentication.Plugin >= 1.0.1",
+      "AspNetCore.ImageUploader >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.5",
       "Microsoft.EntityFrameworkCore >= 3.1.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.5",
@@ -8485,6 +8508,10 @@
           "AspNetCore.Authentication.Plugin": {
             "target": "Package",
             "version": "[1.0.1, )"
+          },
+          "AspNetCore.ImageUploader": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
