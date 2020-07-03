@@ -25,7 +25,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult EditUserProfile([FromBody] Image image)
+        public IActionResult post([FromBody] Image image)
         {
             //claim karala token eken ganna one
             var userEmail = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Email).Value;
@@ -50,7 +50,12 @@ namespace Api.Controllers
             else
             {
                 // ita passe karanna tinne  image eka save karana eka. 
-                user.ImageURL = file;
+                var imageOne=new Image(){
+                    ImageURL=file,
+                    VehicleId=image.VehicleId // from body eka thule yawana id eka.
+                };
+              
+                _dataContext.ImageTbl.Add(imageOne);
                 _dataContext.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created);
             }

@@ -20,9 +20,10 @@ namespace Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Post(Vehicle vehicle){
+        public IActionResult Post(Vehicle vehicle)
+        {
             //auth hinda token eken email eka ganna one
-             var userEmail = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Email).Value;
+            var userEmail = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Email).Value;
             //data base eka email eka tyeda balanawa
             var user = _dataContext.UserTbl.FirstOrDefault(u => u.Email == userEmail);
 
@@ -33,33 +34,51 @@ namespace Api.Controllers
                 return NotFound();
             }
 
-          
-        
 
-            var vehicleObj=new Vehicle(){
-                Title=vehicle.Title,
-                Description=vehicle.Title,
-                Color=vehicle.Color,
-                Company=vehicle.Company,
-                Condition=vehicle.Condition,
-                DatePosted=vehicle.DatePosted,
-                Engine=vehicle.Engine,
-                Price=vehicle.Price,
-                Model=vehicle.Model,
-                Location=vehicle.Location,
-                CategoryId=vehicle.CategoryId,
-                IsFeatured=false,
-                IsHotandNew=false,
-                UserId=user.Id
+
+
+            var vehicleObj = new Vehicle()
+            {
+                Title = vehicle.Title,
+                Description = vehicle.Title,
+                Color = vehicle.Color,
+                Company = vehicle.Company,
+                Condition = vehicle.Condition,
+                DatePosted = vehicle.DatePosted,
+                Engine = vehicle.Engine,
+                Price = vehicle.Price,
+                Model = vehicle.Model,
+                Location = vehicle.Location,
+                CategoryId = vehicle.CategoryId,
+                IsFeatured = false,
+                IsHotandNew = false,
+                UserId = user.Id
             };
-        
+
 
             _dataContext.vehiclesTbl.Add(vehicleObj);
             _dataContext.SaveChanges();
-            return Ok(new {vehicleId=vehicleObj.Id,message="vehicle added successfully"});
+            return Ok(new { vehicleId = vehicleObj.Id, message = "vehicle added successfully" });
             //methana karanne vehile images danawane ewwata id eka return karanawa.
 
         }
-        
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public IActionResult HotAndNewAds()
+        {
+            var vehicles = from v in _dataContext.vehiclesTbl
+                            where v.IsHotandNew == true
+                            select new
+                            {
+                                Id = v.Id,
+                                Title = v.Title,
+                                ImageUrl = v.Images.FirstOrDefault().ImageURL
+                            };
+            return Ok(vehicles);
+
+
+        }
+
     }
 }
