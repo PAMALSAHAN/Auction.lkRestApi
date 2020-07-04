@@ -96,5 +96,26 @@ namespace Api.Controllers
 
         }
 
+        [HttpGet]
+        [Authorize]
+         public IActionResult getVehicle(int categoryId)
+        {
+            var vehicles = from v in _dataContext.vehiclesTbl
+                            where v.CategoryId==categoryId
+                            select new
+                            {
+                                Id = v.Id,
+                                Title = v.Title,
+                                Price =v.Price,
+                                Location =v.Location,
+                                ImageUrl =v.Images.FirstOrDefault().ImageURL,
+                                DatePosted =v.DatePosted,
+                                IsFeatured =v.IsFeatured
+                            
+                            };
+            return Ok(vehicles);
+
+        }
+
     }
 }
