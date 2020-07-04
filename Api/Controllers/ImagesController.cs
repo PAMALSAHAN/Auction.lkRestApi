@@ -54,7 +54,7 @@ namespace Api.Controllers
                     ImageURL=file,
                     VehicleId=image.VehicleId // from body eka thule yawana id eka.
                 };
-              
+            
                 _dataContext.ImageTbl.Add(imageOne);
                 _dataContext.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created);

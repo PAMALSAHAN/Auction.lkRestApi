@@ -80,5 +80,21 @@ namespace Api.Controllers
 
         }
 
+        [HttpGet("[action]")]
+        [Authorize]
+        public IActionResult SearchVehicle(string search)
+        {
+            var vehicles = from v in _dataContext.vehiclesTbl
+                            where v.Title.StartsWith(search)
+                            select new
+                            {
+                                Id = v.Id,
+                                Title = v.Title,
+                            
+                            };
+            return Ok(vehicles);
+
+        }
+
     }
 }
