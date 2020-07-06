@@ -537,4 +537,75 @@ namespace Api.Controllers
             controller eke ekakata witharak nam danna one e methord ekata udin  [Authorize] meka danna puluwan.
         hama method ekakma authorized karala ekak witharak free karanna one nam karanna tinne,
             [AllowAnonymous] eka method ekata udin dana eka.
+    -----------------------------------------------------------------------------------------------------
+    USER ACCESS Tokens
+        authorized ewwata token eka pass karanna one header eken bear kiyala liyala passe token eka pass karanna one.
+    ---------------------------------------------------------------------------------------------------------
+    CHANGE PASSWORD
+        mekedi change password ekata property tikak tinawa ektika daganna one.
+            ita passe account controller eka change password method ekak hadanna one.
+                 var userEmail=User.Claims.FirstOrDefault(c=>c.Type==ClaimTypes.Email).Value;
+            mekedi karanne apita eana token eken email eka extract karala ganna eka.eka thama claim eken karanne.
+        ita passe balanawa email eka data base eke tinawada kiyala ehema thathham not found ekak denawa.
+        ita psse old password eka ekka compare karala balanawa.
+              user.Password=SecurePasswordHasherHelper.Hash(changePassword.NewPassword);
+            _dataContext.SaveChanges();
+            return Ok("your password has been changed!");
+        meka use kranawa passe.
+            model eke haduwa new password ekai confirm password ekai match karanna one.ekata karanna tinne
+                  [Compare("NewPassword",ErrorMessage="The password and the confirm password doesnot match")]
+            meka confirm password ekata udin danna one.ethakota thmai password deka compare wenne.
+    ---------------------------------------------------------------------------------------------------------
+    EDIT PHONE NUMBER
+        mekedi karanne number eka change karanna one unama post ekak hadana eka thma karanne.
+        mekath hariyatam change password wage thmai.
+    -----------------------------------------------------------------------
+    IMAGE UPLOAD KARANA widiha 
+        mekata mulin nuget package ekak danna one.
+            dotnet add package AspNetCore.ImageUploader 
+        ita passe karanne mail ekata adala claim eka ragena e mail eka database eke tiyeda balana eka thma 
+        authorized ekedi karanne.
+            ita passe image eka upload karanna tinne.
 
+                     var stream = new MemoryStream(byte[] ImageArray);
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+                    var folder = "Images";
+                    var response = FilesHelper.UploadImage(stream, folder, file);
+                    if (!response)
+                    {
+                        // Bad Request...
+                    }
+                    else
+                    {
+                        // Image Uploaded...
+                    }       	
+        mekedi api body eken ImageArray eka ganna hinda eke byte[] kiyala define karala tina hinda karanna 
+        tinne byte[] kiyana eka ain karana eka.
+            meka api save karanne byte walin hinda mobile develepers la karanna one meka hadaganna one image eka byte walata convert karaganna.
+------------------------------------------------------------------------------------------------------------------------------------------------
+11
+    vehicel controller 
+        mekedi vehicle id eka return karanawa mokada eken vehicle eke pictures add karaganna one hinda.
+        meke id eka use krala e id ekata adala vehicle images tikak upload karannna hadanna hadanne.
+    ----------------------------------------------------------------------------------------------------------------------
+    image controller   
+        mekedi issella image upload karannna hadapu image ekama use karanna puluwan.hambi from body eke tinne image model eka.eke 
+        byte array eakk naha. eka hinda karanne byte array ekak danawa.meka aththatama one property ekak neme.mokada database ekata yanna 
+        one naha.eka hinda karanne [NotMapped] kiyala dana eka.
+            NotMapped admmahama migrations danna one naha.mokada eka damme naththam model eka change wela hinda migrate karanna kiyala 
+            error ekak denawa.
+        meke vehicle id eka same eka hinda vehicle id eka unique karanna one.
+    --------------------------------------------------------------------------------------------------------------------------
+    hot and new vehicle
+        mekedi hot and new vehicle okkoma tika return karana eka thama karanne.
+        -------------------------------------------------------------------------------------------------------------------
+    search vehicle method
+        search bar eke mokak hari gahumahama eka serch wenna monawada karanna one. kiyana eka.
+    --------------------------------------------------------------------------
+    get vehicle method
+        mekedi karanne category button eka click karama ekata anuwa data tika retrive venna one.
+    ---------------------------------------------------------------------------
+    get vehicle details 
+        mekedi karanne vehicle ekai image ekai dekama join karala eken details ganna eka.ekata api use karanne join keyword
+        eka.

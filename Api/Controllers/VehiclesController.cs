@@ -108,13 +108,27 @@ namespace Api.Controllers
                                 Title = v.Title,
                                 Price =v.Price,
                                 Location =v.Location,
+                                //methana image url eka ganne images kiyana eka one to many ekak eka hinda karanna 
+                                //one image ekak use karana eka ekata karanna tinne first on default 
                                 ImageUrl =v.Images.FirstOrDefault().ImageURL,
+
                                 DatePosted =v.DatePosted,
                                 IsFeatured =v.IsFeatured
                             
                             };
             return Ok(vehicles);
 
+        }
+
+        [HttpGet]
+        public IActionResult vehicleDetails(int id){
+
+            var foundVehicle=_dataContext.vehiclesTbl.Find(id);
+            if(foundVehicle == null){
+                return NoContent();
+            }
+            from v in _dataContext.vehiclesTbl
+            join u in _dataContext.UserTbl on v.UserId equals u.Id
         }
 
     }
