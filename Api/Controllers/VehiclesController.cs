@@ -120,15 +120,37 @@ namespace Api.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
+        [Authorize] 
         public IActionResult vehicleDetails(int id){
 
             var foundVehicle=_dataContext.vehiclesTbl.Find(id);
             if(foundVehicle == null){
                 return NoContent();
             }
-            from v in _dataContext.vehiclesTbl
+            var vehicle=from v in _dataContext.vehiclesTbl
             join u in _dataContext.UserTbl on v.UserId equals u.Id
+            where v.Id==id
+            select new{
+                id=v.Id,
+                title=v.Title,
+                description=v.Description,
+                price=v.Price,
+                models=v.Model,
+                engine=v.Engine,
+                color=v.Color,
+                company=v.Company,
+                datePosted=v.DatePosted,
+                condition=v.Condition,
+                location=v.Location,
+                images=v.Images,
+                email=u.Email,
+                phone=u.Phone,
+                imageUrl=u.ImageURL
+            };
+
+            return Ok(vehicle);
+
         }
 
     }
