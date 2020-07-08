@@ -153,5 +153,45 @@ namespace Api.Controllers
 
         }
 
+        [HttpGet("[action]")]
+        [Authorize] 
+        public IActionResult myAds(){
+
+            //me function eken karanne man hadapu adds tika pennanawa.ekedi use karanawa token ekak. eken 
+            //thama hariyatama log wechchha person hoyaganne.
+
+             //auth hinda token eken email eka ganna one
+            var userEmail = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Email).Value;
+            //data base eka email eka tyeda balanawa
+            var user = _dataContext.UserTbl.FirstOrDefault(u => u.Email == userEmail);
+
+
+            //balana conditon eka. 
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+
+            var vehicle=from v in _dataContext.vehiclesTbl
+
+            where v.UserId==user.Id
+            select new{
+                id=v.Id,
+                title=v.Title,
+                price=v.Price,
+                models=v.Model,
+                datePosted=v.DatePosted,
+                location=v.Location,
+                images=v.Images,
+                imageUrl=v.Images.FirstOrDefault().ImageURL
+            };
+
+            return Ok(vehicle);
+
+        }
+
+        
+
     }
 }
