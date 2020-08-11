@@ -609,3 +609,7 @@ namespace Api.Controllers
     get vehicle details 
         mekedi karanne vehicle ekai image ekai dekama join karala eken details ganna eka.ekata api use karanne join keyword
         eka.
+		
+	------------------------------------------------------------------------------------------------------------
+	 // "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=RestFullApiDb;Trusted_Connection=True;MultipleActiveResultSets=True"
+	 me connetction eka thama delete karala danna one azure connection string eka.

@@ -8469,11 +8469,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\udemy\\.netWithRestfulApi\\work\\CWheelRestFulApi\\Api\\Api.csproj",
+      "projectUniqueName": "F:\\udemy\\.netWithRestfulApi\\work\\Auction.lkRestApi\\Api\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "F:\\udemy\\.netWithRestfulApi\\work\\CWheelRestFulApi\\Api\\Api.csproj",
+      "projectPath": "F:\\udemy\\.netWithRestfulApi\\work\\Auction.lkRestApi\\Api\\Api.csproj",
       "packagesPath": "C:\\Users\\Chamath\\.nuget\\packages\\",
-      "outputPath": "F:\\udemy\\.netWithRestfulApi\\work\\CWheelRestFulApi\\Api\\obj\\",
+      "outputPath": "F:\\udemy\\.netWithRestfulApi\\work\\Auction.lkRestApi\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

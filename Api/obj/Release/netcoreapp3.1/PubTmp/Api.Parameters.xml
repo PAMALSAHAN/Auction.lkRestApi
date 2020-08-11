@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="auctionMobile" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^F:\\udemy\\\.netWithRestfulApi\\work\\Auction\.lkRestApi\\Api\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="Api.data.DataContext" description="" value="Server=tcp:auctionmobileserver.database.windows.net,1433;Initial Catalog=AuctionMobileDB;Persist Security Info=False;User ID=pamalsahan;Password=#pp@1907154;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^F:\\udemy\\\.netWithRestfulApi\\work\\Auction\.lkRestApi\\Api\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\Api\.data\.DataContext\.sql$" />
+  </parameter>
+</parameters>

@@ -28,8 +28,9 @@ namespace Api
             services.AddControllers();
             // using Microsoft.EntityFrameworkCore;
             services.AddMvc().AddXmlSerializerFormatters();
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 
+            services.AddDbContext<DataContext>(option => option.UseSqlServer(@"Server=tcp:auctionmobileserver.database.windows.net,1433;Initial Catalog=AuctionMobileDB;Persist Security Info=False;User ID=pamalsahan;Password=#pp@1907154;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
